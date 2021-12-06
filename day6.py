@@ -77,8 +77,51 @@ def part2(initial_fishes, days):
   print("Total reps: " + str(total_reps))
   print("Total fish: " + str(total_fish))
 
+def part2_faster(init_fish_array, days):
+  fish_days = {
+    0 : 0,
+    1 : 0,
+    2 : 0,
+    3 : 0,
+    4 : 0,
+    5 : 0,
+    6 : 0,
+    7 : 0,
+    8 : 0
+  }
+
+  for f in init_fish_array:
+    fish_days[int(f)] += 1
+
+  for day in range(0, days):
+    print("___ DAY " + str(day) + "____")
+    new_fishes = fish_days[0]
+
+    print("New fishes: " + str(new_fishes))
+
+    ## decrement fish_days values down
+    for i in range(1,9):
+      print("Increment: " + str(i))
+      fish_days[i-1] = fish_days.get(i)
+    ## None should be at 8 day yet
+    fish_days[8] = 0
+
+    ## Add new fishes / repeated fish
+    fish_days[6] += new_fishes
+    fish_days[8] = new_fishes
+
+  print(fish_days)
+
+  print("Total fishes: " + str(get_total_number(fish_days)))
+
+def get_total_number(fishes):
+  total = 0
+  for i in range(0,9):
+    total += fishes.get(i)
+
+  return total
 ## Parse file
-my_file = open("input-files/day6-example-basic.txt", "r")
+my_file = open("input-files/day6.txt", "r")
 content = my_file.read()
 
 initial_fish_timers = content.split(",")
@@ -87,6 +130,4 @@ for initial_fish in initial_fish_timers:
   initial_fishes.append(fish(initial_fish,0))
 
 # part1(initial_fishes, 80)
-for i in range(0,41):
-  print("Number: " + str(i))
-  part2(initial_fishes, i)
+part2_faster(initial_fish_timers, 256)
