@@ -108,7 +108,6 @@ def generate_maps(inputs):
     if is_value_9(input_map, input):
       input_map[9] = input
   
-  print("Current input map: " + str(input_map))
   ## Map a and e segments
   ## a = what is in 7 but not 1
   for c in input_map[7]:
